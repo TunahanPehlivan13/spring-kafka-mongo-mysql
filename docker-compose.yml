@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  location:
+    build: ./location
+    container_name: location
+    depends_on:
+      - location-db
+    environment:
+      - MYSQL_HOST=location-db
+      - MYSQL_USER=root
+      - MYSQL_PASS=pass
+      - MYSQL_DATABASE=location
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
+
+  location-db:
+    image: mysql:8.0
+    container_name: location-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=location
+      - MYSQL_ROOT_HOST=%
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./location/db:/docker-entrypoint-initdb.d
