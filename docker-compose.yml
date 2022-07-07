@@ -54,3 +54,29 @@ services:
       - ./category/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
       - 27017:27017
+
+  property-db:
+    image: 'mongo:4.0.4'
+    container_name: 'property-db'
+    environment:
+      - MONGO_INITDB_DATABASE=property
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - ./property-read/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - 27017:27017
+        
+  property-read:
+    build: ./property-read
+    container_name: property-read
+    depends_on:
+      - property-db
+    environment:
+      - MONGO_HOST=property-db
+      - MONGO_USER=property-read
+      - MONGO_PASS=pass
+      - MONGO_DATABASE=property
+    ports:
+      - 8082:8080
+    restart: unless-stopped
