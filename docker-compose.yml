@@ -1,92 +1,92 @@
 version: "3.8"
 
 services:
-#  location:
-#    build: ./location
-#    container_name: location
-#    depends_on:
-#      - location-db
-#    environment:
-#      - MYSQL_HOST=location-db
-#      - MYSQL_USER=root
-#      - MYSQL_PASS=pass
-#      - MYSQL_DATABASE=location
-#    ports:
-#      - '8080:8080'
-#    restart: unless-stopped
-#
-#  location-db:
-#    image: mysql:8.0
-#    container_name: location-db
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=pass
-#      - MYSQL_USERNAME=root
-#      - MYSQL_PASSWORD=pass
-#      - MYSQL_DATABASE=location
-#      - MYSQL_ROOT_HOST=%
-#    ports:
-#      - '3306:3306'
-#    volumes:
-#      - ./location/db:/docker-entrypoint-initdb.d
-#
-#  category:
-#    build: ./category
-#    container_name: category
-#    depends_on:
-#      - category-db
-#    environment:
-#      - MONGO_HOST=category-db
-#      - MONGO_USER=root
-#      - MONGO_PASS=pass
-#      - MONGO_DATABASE=category
-#    ports:
-#      - 8081:8080
-#    restart: unless-stopped
-#
-#  category-db:
-#    image: 'mongo:4.0.4'
-#    container_name: 'category-db'
-#    environment:
-#      - MONGO_INITDB_DATABASE=category
-#      - MONGO_INITDB_ROOT_USERNAME=root
-#      - MONGO_INITDB_ROOT_PASSWORD=pass
-#    volumes:
-#      - ./category/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-#    ports:
-#      - 27017:27017
-#
-#  property-db:
-#    image: 'mongo:4.0.4'
-#    container_name: 'property-db'
-#    environment:
-#      - MONGO_INITDB_DATABASE=property
-#      - MONGO_INITDB_ROOT_USERNAME=root
-#      - MONGO_INITDB_ROOT_PASSWORD=pass
-#    volumes:
-#      - ./property-read/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-#    ports:
-#      - 27017:27017
-#        
-#  property-read:
-#    build: ./property-read
-#    container_name: property-read
-#    depends_on:
-#      - property-db
-#    environment:
-#      - MONGO_HOST=property-db
-#      - MONGO_USER=property-read
-#      - MONGO_PASS=pass
-#      - MONGO_DATABASE=property
-#    ports:
-#      - 8082:8080
-#    restart: unless-stopped
+  location:
+    build: ./location
+    container_name: location
+    depends_on:
+      - location-db
+    environment:
+      - MYSQL_HOST=location-db
+      - MYSQL_USER=root
+      - MYSQL_PASS=pass
+      - MYSQL_DATABASE=location
+    ports:
+      - '8080:8080'
+    restart: unless-stopped
+
+  location-db:
+    image: mysql:8.0
+    container_name: location-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=location
+      - MYSQL_ROOT_HOST=%
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./location/db:/docker-entrypoint-initdb.d
+
+  category:
+    build: ./category
+    container_name: category
+    depends_on:
+      - category-db
+    environment:
+      - MONGO_HOST=category-db
+      - MONGO_USER=root
+      - MONGO_PASS=pass
+      - MONGO_DATABASE=category
+    ports:
+      - 8081:8080
+    restart: unless-stopped
+
+  category-db:
+    image: 'mongo:4.0.4'
+    container_name: 'category-db'
+    environment:
+      - MONGO_INITDB_DATABASE=category
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - ./category/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - 27017:27017
+
+  property-db:
+    image: 'mongo:4.0.4'
+    container_name: 'property-db'
+    environment:
+      - MONGO_INITDB_DATABASE=property
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    volumes:
+      - ./property-viewer/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - 27017:27017
+
+  property-viewer:
+    build: ./property-viewer
+    container_name: property-viewer
+    depends_on:
+      - property-db
+    environment:
+      - MONGO_HOST=property-db
+      - MONGO_USER=property-viewer
+      - MONGO_PASS=pass
+      - MONGO_DATABASE=property
+    ports:
+      - 8082:8080
+    restart: unless-stopped
 
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.0
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
-  
+
   kafka:
     image: confluentinc/cp-kafka:5.5.0
     container_name: kafka
