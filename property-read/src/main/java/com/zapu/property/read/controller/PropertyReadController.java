@@ -1,9 +1,9 @@
-package com.zapu.property.controller;
+package com.zapu.property.read.controller;
 
-import com.zapu.property.controller.response.PropertyResponse;
-import com.zapu.property.converter.Converter;
-import com.zapu.property.model.Property;
-import com.zapu.property.service.PropertyService;
+import com.zapu.property.read.controller.response.PropertyResponse;
+import com.zapu.property.read.converter.Converter;
+import com.zapu.property.read.model.Property;
+import com.zapu.property.read.service.PropertyReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +14,14 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class PropertyController {
+public class PropertyReadController {
 
-    private final PropertyService propertyService;
+    private final PropertyReadService propertyReadService;
     private final Converter<Property, PropertyResponse> propertyConverter;
 
     @GetMapping("/detay/{propertyId}")
     public ResponseEntity<PropertyResponse> findById(@PathVariable String propertyId) {
-        Optional<Property> mayProperty = propertyService.findById(propertyId);
+        Optional<Property> mayProperty = propertyReadService.findById(propertyId);
         if (mayProperty.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

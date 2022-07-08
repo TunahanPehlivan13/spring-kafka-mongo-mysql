@@ -1,4 +1,4 @@
-package com.zapu.property;
+package com.zapu.property.read;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

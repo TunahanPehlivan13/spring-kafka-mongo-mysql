@@ -1,11 +1,8 @@
-package com.zapu.property.converter;
+package com.zapu.property.read.converter;
 
-import com.zapu.property.controller.response.PropertyResponse;
-import com.zapu.property.model.Property;
+import com.zapu.property.read.controller.response.PropertyResponse;
+import com.zapu.property.read.model.Property;
 import org.springframework.stereotype.Component;
-
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Component
 public class PropertyConverter implements Converter<Property, PropertyResponse> {
@@ -19,13 +16,6 @@ public class PropertyConverter implements Converter<Property, PropertyResponse> 
         propertyResponse.setPrice(source.getPrice());
         propertyResponse.setTitle(source.getTitle());
         return propertyResponse;
-    }
-
-    @Override
-    public Iterable<PropertyResponse> convert(Iterable<Property> sources) {
-        return StreamSupport.stream(sources.spliterator(), false)
-                .map(this::convert)
-                .collect(Collectors.toUnmodifiableSet());
     }
 
 }

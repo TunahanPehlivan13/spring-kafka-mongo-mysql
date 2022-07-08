@@ -1,4 +1,4 @@
-package com.zapu.property.controller.response;
+package com.zapu.property.seeder.controller.request;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class PropertyResponse implements Serializable {
-    private static final long serialVersionUID = -7474067710206286652L;
+public class PropertyRequest implements Serializable {
+    private static final long serialVersionUID = 6567950978584175236L;
 
     private Long categoryId;
     private Long cityId;

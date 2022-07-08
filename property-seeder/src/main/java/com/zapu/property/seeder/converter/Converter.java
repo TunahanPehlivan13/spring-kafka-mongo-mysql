@@ -1,4 +1,4 @@
-package com.zapu.property.converter;
+package com.zapu.property.seeder.converter;
 
 public interface Converter<S, D> {
 

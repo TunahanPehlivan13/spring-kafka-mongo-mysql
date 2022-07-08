@@ -1,10 +1,10 @@
-package com.zapu.property;
+package com.zapu.property.seeder;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PropertyReadApplicationTests {
+class AddNewPropertyCommandSeederApplicationTests {
 
     @Test
     void contextLoads() {

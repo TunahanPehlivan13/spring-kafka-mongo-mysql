@@ -1,4 +1,4 @@
-package com.zapu.property.model;
+package com.zapu.property.read.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +27,4 @@ public class Property {
     private String currency;
 
     private BigDecimal price;
-
-
 }
