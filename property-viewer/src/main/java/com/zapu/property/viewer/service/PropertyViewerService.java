@@ -1,6 +1,6 @@
 package com.zapu.property.viewer.service;
 
-import com.zapu.property.viewer.model.Property;
+import com.zapu.property.viewer.model.PropertyDocument;
 import com.zapu.property.viewer.repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class PropertyViewerService {
 
     private final PropertyRepository propertyRepository;
 
-    public Optional<Property> findById(String propertyId) {
+    public Optional<PropertyDocument> findById(String propertyId) {
         return propertyRepository.findById(propertyId);
     }
 }

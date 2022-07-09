@@ -65,7 +65,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes:
-      - ./property-viewer/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./property-viewer/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init-property-viewer.js:ro
+      - ./property-store/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init-property-store.js:ro
     ports:
       - 27017:27017
 
@@ -94,6 +95,7 @@ services:
     container_name: kafka
     environment:
       KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "add_new_property_command:1:1,new_property_added:1:1"
@@ -109,4 +111,20 @@ services:
       - KAFKA_BOOTSTRAP_SERVER=kafka:9092
     ports:
       - 8083:8080
+    restart: unless-stopped
+
+  property-store:
+    build: ./property-store
+    container_name: property-store
+    depends_on:
+      - property-db
+      - kafka
+    environment:
+      - MONGO_HOST=property-db
+      - MONGO_USER=property-store
+      - MONGO_PASS=pass
+      - MONGO_DATABASE=property
+      - KAFKA_BOOTSTRAP_SERVER=kafka:9092
+    ports:
+      - 8084:8080
     restart: unless-stopped

@@ -6,12 +6,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Document("property")
 @Getter
 @Setter
-public class Property {
+@Document("property")
+public class PropertyDocument implements Serializable {
+    private static final long serialVersionUID = 8511830176265119264L;
 
     @Id
     private String id;

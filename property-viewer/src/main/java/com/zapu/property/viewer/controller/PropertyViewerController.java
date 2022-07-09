@@ -2,7 +2,7 @@ package com.zapu.property.viewer.controller;
 
 import com.zapu.property.viewer.controller.response.PropertyResponse;
 import com.zapu.property.viewer.converter.Converter;
-import com.zapu.property.viewer.model.Property;
+import com.zapu.property.viewer.model.PropertyDocument;
 import com.zapu.property.viewer.service.PropertyViewerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +17,11 @@ import java.util.Optional;
 public class PropertyViewerController {
 
     private final PropertyViewerService propertyViewerService;
-    private final Converter<Property, PropertyResponse> propertyConverter;
+    private final Converter<PropertyDocument, PropertyResponse> propertyConverter;
 
     @GetMapping("/detay/{propertyId}")
     public ResponseEntity<PropertyResponse> findById(@PathVariable String propertyId) {
-        Optional<Property> mayProperty = propertyViewerService.findById(propertyId);
+        Optional<PropertyDocument> mayProperty = propertyViewerService.findById(propertyId);
         if (mayProperty.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
