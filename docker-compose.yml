@@ -67,6 +67,7 @@ services:
     volumes:
       - ./property-viewer/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init-property-viewer.js:ro
       - ./property-store/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init-property-store.js:ro
+      - ./property-search/db/init-mongo.js:/docker-entrypoint-initdb.d/mongo-init-property-search.js:ro
     ports:
       - 27017:27017
 
@@ -127,4 +128,20 @@ services:
       - KAFKA_BOOTSTRAP_SERVER=kafka:9092
     ports:
       - 8084:8080
+    restart: unless-stopped
+    
+  property-search:
+    build: ./property-search
+    container_name: property-search
+    depends_on:
+      - property-db
+    environment:
+      - MONGO_HOST=property-db
+      - MONGO_USER=property-search
+      - MONGO_PASS=pass
+      - MONGO_DATABASE=property
+      - category.service.url=category:8080
+      - location.service.url=location:8080
+    ports:
+      - 8085:8080
     restart: unless-stopped
