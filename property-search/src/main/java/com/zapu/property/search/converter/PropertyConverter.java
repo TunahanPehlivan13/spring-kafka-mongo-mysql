@@ -24,8 +24,8 @@ public class PropertyConverter implements Converter<PropertyDocument, PropertyRe
 
     @Override
     public PropertyResponse convert(PropertyDocument source) {
-        Iterable<CategoryDto> categories = categoryClientAdapter.findAll();
-        Iterable<CityDto> cities = locationClientAdapter.findAll();
+        Iterable<CategoryDto> categories = categoryClientAdapter.getAll();
+        Iterable<CityDto> cities = locationClientAdapter.getAllCities();
 
         PropertyResponse propertyResponse = new PropertyResponse();
         propertyResponse.setId(source.getId());

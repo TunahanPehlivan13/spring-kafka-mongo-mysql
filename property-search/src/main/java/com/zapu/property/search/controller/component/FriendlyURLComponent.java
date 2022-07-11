@@ -18,12 +18,12 @@ public class FriendlyURLComponent {
     private final CategoryClientAdapter categoryClientAdapter;
 
     public CityDto findCityById(Long cityId) {
-        Iterable<CityDto> cities = locationClientAdapter.findAll();
+        Iterable<CityDto> cities = locationClientAdapter.getAllCities();
         return cityIdFinder.find(cityId, cities);
     }
 
     public CategoryDto findCategoryById(Long categoryId) {
-        Iterable<CategoryDto> categories = categoryClientAdapter.findAll();
+        Iterable<CategoryDto> categories = categoryClientAdapter.getAll();
         return categoryIdFinder.find(categoryId, categories);
     }
 }

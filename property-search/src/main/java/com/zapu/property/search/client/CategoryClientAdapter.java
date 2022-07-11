@@ -11,5 +11,5 @@ public interface CategoryClientAdapter {
 
     @Cacheable(value = "categories")
     @RequestMapping(method = RequestMethod.GET, value = "/api/categories")
-    Iterable<CategoryDto> findAll();
+    Iterable<CategoryDto> getAll();
 }

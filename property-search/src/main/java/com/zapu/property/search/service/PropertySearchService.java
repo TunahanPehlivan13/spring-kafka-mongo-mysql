@@ -27,14 +27,14 @@ public class PropertySearchService {
     private final NameFinder<CategoryDto> categoryNameFinder;
     private final NameFinder<CityDto> cityNameFinder;
 
-    public Page<PropertyDocument> search(String category, Optional<String> mayCity, Integer page) {
+    public Page<PropertyDocument> search(String categoryName, Optional<String> mayCityName, Integer page) {
         PageRequest pageRequest = PageRequest.of(page - 1, PAGE_SIZE);
 
-        Long categoryId = findCategoryId(category);
-        if (mayCity.isEmpty()) {
+        Long categoryId = findCategoryId(categoryName);
+        if (mayCityName.isEmpty()) {
             return propertyRepository.findByCategoryId(categoryId, pageRequest);
         }
-        Long cityId = findCityId(mayCity.get());
+        Long cityId = findCityId(mayCityName.get());
         return propertyRepository.findByCategoryIdAndCityId(categoryId, cityId, pageRequest);
     }
 
@@ -43,13 +43,13 @@ public class PropertySearchService {
         return propertyRepository.findByCategoryIdAndCityIdIn(categoryId, cityIds, pageRequest);
     }
 
-    private Long findCityId(String city) {
-        Iterable<CityDto> cities = locationClientAdapter.findAll();
-        return cityNameFinder.find(city, cities).getId();
+    private Long findCityId(String cityName) {
+        Iterable<CityDto> cities = locationClientAdapter.getAllCities();
+        return cityNameFinder.find(cityName, cities).getId();
     }
 
-    private Long findCategoryId(String category) {
-        Iterable<CategoryDto> categories = categoryClientAdapter.findAll();
-        return categoryNameFinder.find(category, categories).getId();
+    private Long findCategoryId(String categoryName) {
+        Iterable<CategoryDto> categories = categoryClientAdapter.getAll();
+        return categoryNameFinder.find(categoryName, categories).getId();
     }
 }

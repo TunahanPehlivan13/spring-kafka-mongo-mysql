@@ -76,9 +76,9 @@ public class PropertySearchController {
 
     @GetMapping("/arama/{category}")
     public ResponseEntity<PageablePropertyResponse> search(
-            @PathVariable("category") String categoryId, @RequestParam(defaultValue = "1") Integer page) {
+            @PathVariable("category") String categoryName, @RequestParam(defaultValue = "1") Integer page) {
 
-        Page<PropertyDocument> result = propertySearchService.search(categoryId, Optional.empty(), page);
+        Page<PropertyDocument> result = propertySearchService.search(categoryName, Optional.empty(), page);
         PageablePropertyResponse response = pageablePropertyResponseComponent.createResponse(
                 result, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
         return ResponseEntity.ok(response);
@@ -86,9 +86,9 @@ public class PropertySearchController {
 
     @GetMapping("/arama/{category}/{city}")
     public ResponseEntity<PageablePropertyResponse> search(
-            @PathVariable("category") String categoryId, @PathVariable("city") String cityId, @RequestParam(defaultValue = "1") Integer page) {
+            @PathVariable("category") String categoryName, @PathVariable("city") String cityName, @RequestParam(defaultValue = "1") Integer page) {
 
-        Page<PropertyDocument> result = propertySearchService.search(categoryId, Optional.of(cityId), page);
+        Page<PropertyDocument> result = propertySearchService.search(categoryName, Optional.of(cityName), page);
         PageablePropertyResponse response = pageablePropertyResponseComponent.createResponse(
                 result, ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString());
         return ResponseEntity.ok(response);

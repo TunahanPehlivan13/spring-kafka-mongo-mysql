@@ -11,5 +11,5 @@ public interface LocationClientAdapter {
 
     @Cacheable(value = "cities")
     @RequestMapping(method = RequestMethod.GET, value = "/api/cities")
-    Iterable<CityDto> findAll();
+    Iterable<CityDto> getAllCities();
 }
