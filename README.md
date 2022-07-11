@@ -98,7 +98,7 @@ Property Viewer service is a Spring Boot application which communicates to a Mon
 
 ### `Property Seeder Service (./property-seeder)`
 Property Seeder service is a Spring Boot application which communicates to a Kafka. 
-It provides commands on Kafka cluster which are consumed after to store in a Mongo database.
+It provides commands on Kafka cluster which are consumed by another service after to store in a Mongo database.
 
 #### `POST '/api/property'`
 #### Example Input
