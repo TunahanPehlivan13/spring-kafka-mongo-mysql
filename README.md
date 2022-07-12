@@ -21,6 +21,7 @@ To add a new property to the system you need the following services. Make passiv
 * `property-store`
 * `kafka`
 * `zookeeper`
+* `property-db`
 
 To acquire a property on the system you need the following services.
 * `location`
@@ -29,6 +30,7 @@ To acquire a property on the system you need the following services.
 * `category-db`
 * `property-search`
 * `property-viewer`
+* `property-db`
 
 ## System Design and Service Explanation
 ![](system-design.png)
